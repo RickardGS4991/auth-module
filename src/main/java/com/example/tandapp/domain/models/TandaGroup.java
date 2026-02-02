@@ -7,80 +7,82 @@ import java.util.Set;
 import java.util.UUID;
 
 public class TandaGroup {
-    private final UUID id;
+    private UUID groupId = null;
+    private final UUID chiefId;
     private final String groupName;
     private String description;
     private final LocalDate createdAt;
-    private final List<LocalDate> payDays;
-    private final List<MemberInTheGroup> members;
+    private final LocalDate paymentDate;
+    private final List<LocalDate> paymentDates;
+    private final List<MemberGroup> members;
     private final Long contributionAmount;
 
-    public TandaGroup(UUID id, String groupName, String description, LocalDate createdAt, List<LocalDate> payDays, List<MemberInTheGroup> members, Long contributionAmount) {
-        if(id == null) throw new IllegalArgumentException("id cannot be null");
-        if(groupName == null || groupName.isEmpty()) throw new IllegalArgumentException("This group must have a name");
-        if(description == null || description.isEmpty()) throw new IllegalArgumentException("This group must have a description");
-        if(members == null || members.isEmpty()) throw new IllegalArgumentException("This group must have a memberId");
-        if(members.size() > 10) throw new IllegalArgumentException("Maximum quantity of member in a group is 10");
-        if(contributionAmount <= 0) throw new IllegalArgumentException("This group must have a contribution");
+    public TandaGroup(UUID chiefId, String groupName, String description, LocalDate createdAt, LocalDate paymentDate, List<LocalDate> paymentDates, List<MemberGroup> members, Long contributionAmount) {
+        if(chiefId == null) throw new IllegalArgumentException("Chief Id cannot be null or blank");
+        if(groupName == null || groupName.isBlank()) throw new IllegalArgumentException("Group Name cannot be null or blank");
+        if(description == null || description.isBlank()) throw new IllegalArgumentException("Description cannot be null or blank");
+        if(createdAt == null) throw new IllegalArgumentException("Created At cannot be null or blank");
+        if(paymentDate == null) throw new IllegalArgumentException("Payment Date cannot be null or blank");
+        if(paymentDates == null) throw new IllegalArgumentException("Payment Dates cannot be null or blank");
+        if(members == null) throw new IllegalArgumentException("Members cannot be null or blank");
+        if(contributionAmount == null) throw new IllegalArgumentException("Contribution Amount cannot be null or blank");
+        if(contributionAmount < 100) throw new IllegalArgumentException("Contribution Amount cannot be minus 100");
 
-        validateNoDuplicateMembers(members);
-        avoidDuplicatePayDays(payDays);
 
-        this.id = id;
+        validateDuplicateDates(paymentDates);
+        validateDuplicateMembers(members);
+
+        this.chiefId = chiefId;
         this.groupName = groupName;
         this.description = description;
         this.createdAt = createdAt;
-        this.payDays = List.copyOf(payDays);
+        this.paymentDate = paymentDate;
+        this.paymentDates = List.copyOf(paymentDates);
         this.members = List.copyOf(members);
         this.contributionAmount = contributionAmount;
     }
 
-    public String getGroupName() {
-        return groupName;
+    private void validateDuplicateDates(List<LocalDate> dates){
+        Set<LocalDate> datesSet = new HashSet<>();
+
+        for(LocalDate date: dates){
+            if(!datesSet.add(date)) throw new IllegalArgumentException("Duplicate date " + date);
+        }
+    }
+
+    private void validateDuplicateMembers(List<MemberGroup> members){
+        Set<UUID> memberIdSet = new HashSet<>();
+
+        for(MemberGroup member: members){
+            if (!memberIdSet.add(member.getMemberId())) {
+                throw new IllegalArgumentException(
+                        "Duplicate member id " + member.getMemberId()
+                );
+            }
+        }
+    }
+
+    public List<MemberGroup> getMembers() {
+        return members;
+    }
+
+    public UUID getChiefId() {
+        return chiefId;
+    }
+
+    public List<LocalDate> getPaymentDates() {
+        return paymentDates;
+    }
+
+    public Long getRewardAmount() {
+        return contributionAmount*members.size();
     }
 
     public String getDescription() {
         return description;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public long rewardAmount() {
-        return contributionAmount*members.size();
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public Long getContributionAmount() {
-        return contributionAmount;
-    }
-
-    private void avoidDuplicatePayDays(List<LocalDate> payDays){
-        Set<LocalDate> setDays = new HashSet<>();
-
-        for(LocalDate payDay : payDays){
-            if(!setDays.add(payDay)){
-                throw new IllegalArgumentException("Pay day already exists");
-            }
-        }
-    }
-
-    private void validateNoDuplicateMembers(List<MemberInTheGroup> members) {
-        Set<UUID> uniqueMemberIds = new HashSet<>();
-
-        for (MemberInTheGroup member : members) {
-            if (!uniqueMemberIds.add(member.getMemberId())) {
-                throw new IllegalArgumentException("Duplicate member in group: " + member.getMemberId());
-            }
-        }
-    }
-
-    public void changeDescription(String newDescription){
-        if(newDescription == null || newDescription.isEmpty()) throw new IllegalArgumentException("New description cannot be null or empty");
-        this.description = newDescription;
+    public void changeDescription(String description) {
+        this.description = description;
     }
 }

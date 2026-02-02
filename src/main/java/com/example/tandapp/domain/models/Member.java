@@ -1,24 +1,49 @@
 package com.example.tandapp.domain.models;
-import java.util.List;
+
 import java.util.UUID;
 
 public class Member {
-    private final UUID id;
-    private final String email;
-    private String password;
+    private UUID memberId = null;
     private MemberInformation information;
+    private final MemberAccess credentials;
+    private final Boolean allowed;
 
-    public Member(UUID id, String email, String password, MemberInformation information) {
-        if(email == null || password == null) throw new IllegalArgumentException("Email or password cannot be null");
-
-        this.id = id;
-        this.email = email;
-        this.password = password;
+    public Member(MemberInformation information, MemberAccess credentials, Boolean allowed) {
         this.information = information;
+        this.credentials = credentials;
+        this.allowed = allowed;
     }
 
-    public String getEmail(){
-        return email;
+    public MemberInformation getInformation() {
+        return information;
+    }
+
+    public UUID getMemberId() {
+        return memberId;
+    }
+
+    public void changeName(String firstName, String lastName){
+        this.information = new MemberInformation(
+                firstName,
+                lastName,
+                information.getNumberPhone(),
+                information.getCity(),
+                information.getCountry(),
+                information.getPostalCode(),
+                information.getAddress()
+        );
+    }
+
+    public void changeAddress(String city, String country, String postalCode, String address){
+        this.information = new MemberInformation(
+                information.getFirstName(),
+                information.getLastName(),
+                information.getNumberPhone(),
+                city,
+                country,
+                postalCode,
+                address
+        );
     }
 
 }
