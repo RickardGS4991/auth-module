@@ -1,20 +1,23 @@
 package com.example.tandapp.auth.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-public class UserTanda {
+public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private UUID userId;
 
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
-    private LocalDate birthDate;
+
+    @Column(nullable = false)
+    private LocalDate birthdate;
 
     @Embedded
     private Address address;
@@ -22,17 +25,16 @@ public class UserTanda {
     @Embedded
     private UserAccess information;
 
-    protected UserTanda() {}
+    protected Users() {}
 
-    //Before making
-    public UserTanda(String firstName, String lastName, LocalDate birthDate, Address address, UserAccess information){
+    public Users(String firstName, String lastName, LocalDate birthdate, Address address, UserAccess information){
         if(firstName == null || firstName.isBlank()) throw new IllegalArgumentException("Nombre inválido.");
         if(lastName == null || lastName.isBlank()) throw new IllegalArgumentException("Apellidos inválidos.");
-        if(birthDate == null) throw new IllegalArgumentException("Fecha de cumpleaños invalido.");
+        if(birthdate == null) throw new IllegalArgumentException("Fecha de cumpleaños invalido.");
 
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthDate = birthDate;
+        this.birthdate = birthdate;
         this.address = address;
         this.information = information;
     }
@@ -41,7 +43,7 @@ public class UserTanda {
         return firstName + " " + lastName;
     }
 
-    public Long showId(){
+    public UUID showId(){
         return userId;
     }
 }
