@@ -1,5 +1,6 @@
 package com.example.tandapp.auth.controller.exception;
 
+import com.example.tandapp.auth.domain.exceptions.IncorrectAccessException;
 import com.example.tandapp.auth.domain.exceptions.InformationAlreadyEnteredException;
 import com.example.tandapp.auth.domain.exceptions.InformationInvalidateException;
 import com.example.tandapp.utils.entity.ApiResponse;
@@ -19,5 +20,8 @@ public class AuthExceptionHandler {
         return ResponseEntity.status(500).body(new ApiResponse<Void>(ex.getMessage(), false, null));
     }
 
-
+    @ExceptionHandler(IncorrectAccessException.class)
+    public ResponseEntity<ApiResponse<Void>> incorrectInformationHandler(IncorrectAccessException ex){
+        return ResponseEntity.status(408).body(new ApiResponse<Void>(ex.getMessage(), false, null));
+    }
 }
