@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth/signup")
+@RequestMapping("/auth")
 public class Authentication {
 
     public IRegisterUseCase register;
@@ -19,7 +19,7 @@ public class Authentication {
         this.register = register;
     }
 
-    @PostMapping()
+    @PostMapping("/signup")
     public ResponseEntity<Void> registerUser(@Valid @RequestBody RegisterUserRequest information){
         register.execute(information);
 
