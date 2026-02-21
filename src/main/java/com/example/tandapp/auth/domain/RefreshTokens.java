@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-public class RefreshToken {
+public class RefreshTokens {
     @Id
     private UUID refreshTokenId;
 
@@ -25,9 +25,9 @@ public class RefreshToken {
     @Column(nullable = false)
     private boolean revoked;
 
-    protected RefreshToken(){}
+    protected RefreshTokens(){}
 
-    public RefreshToken(UUID userId, String refreshToken, Instant expiresAt, boolean revoked){
+    public RefreshTokens(UUID userId, String refreshToken, Instant expiresAt, boolean revoked){
         if(userId == null) throw new IllegalArgumentException("UserID inválido. Usuario no tiene permisos.");
         if(refreshToken == null || refreshToken.isBlank()) throw new IllegalArgumentException("Token inválido.");
         if(expiresAt == null) throw new IllegalArgumentException("Fecha inválida.");
@@ -51,5 +51,11 @@ public class RefreshToken {
     public String showRToken(){
         return refreshToken;
     }
+
+    public UUID showIdRt(){
+        return refreshTokenId;
+    }
+
+
 }
 
