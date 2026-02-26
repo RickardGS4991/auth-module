@@ -3,22 +3,12 @@ package com.example.tandapp.auth.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-@Embeddable
 public class Address {
 
-    @Column(nullable = false)
-    private String street;
-
-    @Column(nullable = false)
-    private String postalCode;
-
-    @Column(nullable = false)
-    private String city;
-
-    @Column(nullable = false)
-    private String phoneNumber;
-
-    protected Address(){}
+    private final String street;
+    private final String postalCode;
+    private final String city;
+    private final String phoneNumber;
 
     public Address(String street, String postalCode, String city, String phoneNumber){
 

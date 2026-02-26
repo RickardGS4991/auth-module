@@ -3,21 +3,13 @@ package com.example.tandapp.auth.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-@Embeddable
-public class UserAccess {
+public class UserCredentials {
 
-    @Column(nullable = false)
-    private String username;
+    private final String username;
+    private final String email;
+    private final String password;
 
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
-
-    protected UserAccess(){}
-
-    public UserAccess(String username, String email, String password){
+    public UserCredentials(String username, String email, String password){
         if(username == null || username.isBlank()) throw new IllegalArgumentException("Username inválido.");
         if(email == null || email.isBlank()) throw new IllegalArgumentException("Correo electrónico inválido.");
         if(password == null || password.isBlank()) throw new IllegalArgumentException("Contraseña inválida.");
