@@ -1,6 +1,7 @@
 package com.example.tandapp.auth.controller;
 
 import com.example.tandapp.auth.application.base.IRegisterUseCase;
+import com.example.tandapp.auth.application.dto.LoginUserRequest;
 import com.example.tandapp.auth.application.dto.RegisterUserRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,10 @@ public class Authentication {
         register.execute(information);
 
         return ResponseEntity.status(200).build();
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<Void> loginUser(@Valid @RequestBody LoginUserRequest information){
+        throw new IllegalArgumentException();
     }
 }
