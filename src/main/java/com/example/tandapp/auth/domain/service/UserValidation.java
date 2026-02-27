@@ -1,9 +1,9 @@
 package com.example.tandapp.auth.domain.service;
 
 import com.example.tandapp.auth.domain.repository.IEmailCheckRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserValidation {
 
     private IEmailCheckRepository emailCheckRepository;
