@@ -5,9 +5,9 @@ import com.example.tandapp.auth.domain.repository.IUserAuth;
 import com.example.tandapp.auth.infrastructure.entities.UsersEntity;
 import com.example.tandapp.auth.infrastructure.mappers.UserMapper;
 import com.example.tandapp.auth.infrastructure.repository.JpaRepositoryAuthentication;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class SqlUserAuthImpl implements IUserAuth {
 
     private final JpaRepositoryAuthentication jpaRepositoryAuthentication;
