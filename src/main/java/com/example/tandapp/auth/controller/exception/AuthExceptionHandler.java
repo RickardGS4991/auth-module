@@ -22,6 +22,6 @@ public class AuthExceptionHandler {
 
     @ExceptionHandler(IncorrectAccessException.class)
     public ResponseEntity<ApiResponse<Void>> incorrectInformationHandler(IncorrectAccessException ex){
-        return ResponseEntity.status(408).body(new ApiResponse<Void>(ex.getMessage(), false, null));
+        return ResponseEntity.status(401).body(new ApiResponse<Void>(ex.getMessage(), false, null));
     }
 }

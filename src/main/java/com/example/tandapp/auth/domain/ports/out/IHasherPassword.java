@@ -1,4 +1,4 @@
-package com.example.tandapp.auth.application.security;
+package com.example.tandapp.auth.domain.ports.out;
 
 public interface IHasherPassword {
     String hasherPassword(String password);

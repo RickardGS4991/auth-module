@@ -1,6 +1,6 @@
 package com.example.tandapp.auth.controller;
 
-import com.example.tandapp.auth.application.base.IRegisterUseCase;
+import com.example.tandapp.auth.application.ports.in.IRegisterUseCase;
 import com.example.tandapp.auth.application.dto.LoginUserRequest;
 import com.example.tandapp.auth.application.dto.RegisterUserRequest;
 import jakarta.validation.Valid;

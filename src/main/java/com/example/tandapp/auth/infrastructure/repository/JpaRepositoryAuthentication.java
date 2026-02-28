@@ -7,4 +7,5 @@ import java.util.UUID;
 
 @Repository
 public interface JpaRepositoryAuthentication extends JpaRepository<UsersEntity, UUID> {
+    UsersEntity findByInformationEmail(String email);
 }

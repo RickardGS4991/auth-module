@@ -1,6 +1,6 @@
 package com.example.tandapp.auth.infrastructure.adapters;
 
-import com.example.tandapp.auth.domain.repository.IEmailCheckRepository;
+import com.example.tandapp.auth.application.ports.out.IEmailCheckRepository;
 import com.example.tandapp.auth.infrastructure.repository.JpaRepositoryCheckEmail;
 import org.springframework.stereotype.Repository;
 

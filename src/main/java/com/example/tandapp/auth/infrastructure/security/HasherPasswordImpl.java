@@ -1,6 +1,6 @@
 package com.example.tandapp.auth.infrastructure.security;
 
-import com.example.tandapp.auth.application.security.IHasherPassword;
+import com.example.tandapp.auth.domain.ports.out.IHasherPassword;
 import com.example.tandapp.auth.domain.exceptions.InformationInvalidateException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
