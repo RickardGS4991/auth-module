@@ -1,6 +1,7 @@
 package com.example.tandapp.auth.infrastructure.adapters;
 
 import com.example.tandapp.auth.domain.Users;
+import com.example.tandapp.auth.domain.ports.out.ITokensMaker;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -11,7 +12,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Component
-public class TokensMakerImpl{
+public class TokensMakerImpl implements ITokensMaker {
 
     @Value("{jwt.secret}")
     private String secret;

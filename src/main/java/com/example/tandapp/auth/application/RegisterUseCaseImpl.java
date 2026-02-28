@@ -1,22 +1,23 @@
 package com.example.tandapp.auth.application;
 
 import com.example.tandapp.auth.application.dto.RegisterUserRequest;
-import com.example.tandapp.auth.application.security.IHasherPassword;
+import com.example.tandapp.auth.application.ports.in.IRegisterUseCase;
+import com.example.tandapp.auth.domain.ports.out.IHasherPassword;
 import com.example.tandapp.auth.domain.Address;
 import com.example.tandapp.auth.domain.UserCredentials;
 import com.example.tandapp.auth.domain.Users;
 import com.example.tandapp.auth.domain.exceptions.InformationAlreadyEnteredException;
-import com.example.tandapp.auth.domain.repository.IRegisterUseCase;
+import com.example.tandapp.auth.domain.ports.out.IUserRepository;
 import com.example.tandapp.auth.domain.service.UserValidation;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RegisterUseCaseImpl implements com.example.tandapp.auth.application.base.IRegisterUseCase {
+public class RegisterUseCaseImpl implements IRegisterUseCase {
     private final UserValidation validator;
-    private final IRegisterUseCase userAuthRepository;
+    private final IUserRepository userAuthRepository;
     private final IHasherPassword hasherPassword;
 
-    public RegisterUseCaseImpl(UserValidation validator, IRegisterUseCase userAuthRepository, IHasherPassword hasherPassword) {
+    public RegisterUseCaseImpl(UserValidation validator, IUserRepository userAuthRepository, IHasherPassword hasherPassword) {
         this.validator = validator;
         this.userAuthRepository = userAuthRepository;
         this.hasherPassword = hasherPassword;

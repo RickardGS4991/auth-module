@@ -1,18 +1,31 @@
 package com.example.tandapp.auth.application;
 
 import com.example.tandapp.auth.application.dto.LoginUserRequest;
-import com.example.tandapp.auth.application.security.IHasherPassword;
-import com.example.tandapp.auth.domain.repository.ILoginUseCase;
+import com.example.tandapp.auth.application.dto.LoginUserResponse;
+import com.example.tandapp.auth.application.ports.in.ILoginUseCase;
+import com.example.tandapp.auth.domain.Users;
+import com.example.tandapp.auth.domain.ports.out.ITokensMaker;
+import com.example.tandapp.auth.domain.service.UserValidation;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LoginUseCaseImpl implements ILoginUseCase {
-    private IHasherPassword hasherPassword;
+    private final UserValidation userValidation;
+    private final ITokensMaker tokensMaker;
 
-    public LoginUseCaseImpl(IHasherPassword hasherPassword){
-        this.hasherPassword = hasherPassword;
+    public LoginUseCaseImpl(UserValidation userValidation, ITokensMaker tokensMaker) {
+        this.userValidation = userValidation;
+        this.tokensMaker = tokensMaker;
     }
 
     @Override
-    public void execute(LoginUserRequest info) {
+    public LoginUserResponse execute(LoginUserRequest loginUserRequest) {
+        Users member = userValidation.getUserInformation(loginUserRequest.getEmail(), loginUserRequest.getPassword());
+
+        String accessToken = tokensMaker.generateAccessToken(member);
+        String refreshToken = tokensMaker.generateRefreshToken();
 
     }
+
+
 }

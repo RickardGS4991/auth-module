@@ -1,4 +1,4 @@
-package com.example.tandapp.auth.application.base;
+package com.example.tandapp.auth.application.ports.in;
 
 import com.example.tandapp.auth.application.dto.RegisterUserRequest;
 
