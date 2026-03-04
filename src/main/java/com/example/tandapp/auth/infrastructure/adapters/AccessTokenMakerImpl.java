@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class AccessTokenMakerImpl implements IAccessTokenMaker {
 
-    @Value("{jwt.secret}")
+    @Value("${jwt.secret}")
     private final String secret;
 
     @Value("${jwt.expiration}")

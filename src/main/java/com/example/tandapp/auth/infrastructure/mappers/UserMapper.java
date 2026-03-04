@@ -13,7 +13,7 @@ public class UserMapper {
     public Users toDomain(UsersEntity member) {
         Address address = new Address(member.getAddress().getStreet(), member.getAddress().getPostalCode(), member.getAddress().getCity(), member.getAddress().getNumberPhone());
         UserCredentials information = new UserCredentials(member.getInformation().getUsername(), member.getInformation().getEmail(), member.getInformation().getPassword());
-        return Users.create(member.getFirstName(), member.getLastName(), member.getBirthdate(), address, information);
+        return Users.restore(member.getUserId(), member.getFirstName(), member.getLastName(), member.getBirthdate(), address, information);
     }
 
     public UsersEntity toPersistance(Users member) {
