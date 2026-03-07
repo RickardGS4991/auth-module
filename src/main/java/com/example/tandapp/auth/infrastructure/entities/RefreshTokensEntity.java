@@ -18,6 +18,9 @@ public class RefreshTokensEntity {
     private UUID userId;
 
     @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
     private String refreshToken;
 
     @Column(nullable = false)
@@ -28,9 +31,10 @@ public class RefreshTokensEntity {
 
     protected RefreshTokensEntity(){}
 
-    public RefreshTokensEntity(UUID refreshTokenId, UUID userId, String refreshToken, Instant expiresAt, boolean revoked){
+    public RefreshTokensEntity(UUID refreshTokenId, UUID userId, String email, String refreshToken, Instant expiresAt, boolean revoked){
         this.refreshTokenId = refreshTokenId;
         this.userId = userId;
+        this.email = email;
         this.refreshToken = refreshToken;
         this.expiresAt = expiresAt;
         this.revoked = revoked;
@@ -42,6 +46,10 @@ public class RefreshTokensEntity {
 
     public UUID getUserId(){
         return userId;
+    }
+
+    public String getEmail(){
+        return email;
     }
 
     public String getRefreshToken() {

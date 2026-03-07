@@ -5,7 +5,7 @@ import com.example.tandapp.auth.application.dto.LoginUserResponse;
 import com.example.tandapp.auth.application.ports.in.ILoginUseCase;
 import com.example.tandapp.auth.domain.RefreshTokens;
 import com.example.tandapp.auth.domain.Users;
-import com.example.tandapp.auth.domain.ports.out.IAccessTokenMaker;
+import com.example.tandapp.auth.application.ports.out.IAccessTokenMaker;
 import com.example.tandapp.auth.domain.ports.out.IRefreshTokenRepository;
 import com.example.tandapp.auth.domain.service.UserValidation;
 import org.springframework.stereotype.Service;
@@ -26,8 +26,8 @@ public class LoginUseCaseImpl implements ILoginUseCase {
     public LoginUserResponse execute(LoginUserRequest loginUserRequest) {
         Users member = userValidation.getUserInformation(loginUserRequest.getEmail(), loginUserRequest.getPassword());
 
-        String accessToken = tokensMaker.generateAccessToken(member);
-        RefreshTokens refreshToken = RefreshTokens.create(member.showId());
+        String accessToken = tokensMaker.generateAccessToken(member.showId(), member.getInformation().getEmail());
+        RefreshTokens refreshToken = RefreshTokens.create(member.showId(), member.getInformation().getEmail());
 
         repository.save(refreshToken);
 

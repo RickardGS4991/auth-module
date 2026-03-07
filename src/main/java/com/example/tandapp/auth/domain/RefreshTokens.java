@@ -5,39 +5,41 @@ import java.time.Instant;
 import java.util.UUID;
 
 public class RefreshTokens {
-    private UUID refreshTokenId;
+    private final UUID refreshTokenId;
 
-    private UUID userId;
+    private final UUID userId;
 
-    private String refreshToken;
+    private final String email;
 
-    private Instant expiresAt;
+    private final String refreshToken;
+
+    private final Instant expiresAt;
 
     private boolean revoked;
 
-    protected RefreshTokens(){}
-
-    private RefreshTokens(UUID refreshTokenId, UUID userId, String refreshToken, Instant expiresAt, boolean revoked){
+    private RefreshTokens(UUID refreshTokenId, UUID userId, String email, String refreshToken, Instant expiresAt, boolean revoked){
         if(userId == null) throw new IllegalArgumentException("UserID inválido. Usuario no tiene permisos.");
+        if(email == null) throw new IllegalArgumentException("Email inválido.");
         if(refreshToken == null || refreshToken.isBlank()) throw new IllegalArgumentException("Token inválido.");
         if(expiresAt == null) throw new IllegalArgumentException("Fecha inválida.");
 
         this.refreshTokenId = refreshTokenId;
         this.userId = userId;
+        this.email = email;
         this.refreshToken = refreshToken;
         this.expiresAt = expiresAt;
         this.revoked = revoked;
     }
 
-    public static RefreshTokens create(UUID userId){
-        return new RefreshTokens(UUID.randomUUID(), userId, UUID.randomUUID().toString(), Instant.now(), false);
+    public static RefreshTokens create(UUID userId, String email){
+        return new RefreshTokens(UUID.randomUUID(), userId, email, UUID.randomUUID().toString(), Instant.now(), false);
     }
 
-    public static RefreshTokens restore(UUID refreshTokenId, UUID userId, String refreshToken, Instant expiresAt, boolean revoked){
-        return new RefreshTokens(refreshTokenId, userId, refreshToken, expiresAt, revoked);
+    public static RefreshTokens restore(UUID refreshTokenId, UUID userId, String email, String refreshToken, Instant expiresAt, boolean revoked){
+        return new RefreshTokens(refreshTokenId, userId, email, refreshToken, expiresAt, revoked);
     }
 
-    public boolean isExpired(Instant todayHour){
+    public static boolean isExpired(Instant todayHour){
         Instant thisMoment = Instant.now();
 
         return thisMoment.isAfter(todayHour);
@@ -61,6 +63,10 @@ public class RefreshTokens {
 
     public Instant getExpiresAt(){
         return expiresAt;
+    }
+
+    public String getEmail(){
+        return email;
     }
 
 
