@@ -27,7 +27,7 @@ public class SqlRefreshToken implements IRefreshTokenRepository {
     }
 
     @Override
-    public Optional<RefreshTokens> validate(String token){
+    public Optional<RefreshTokens> findByToken(String token){
         return jpaRepositoryRefreshToken.findByRefreshToken(token).map(mapper::toDomain);
     }
 }

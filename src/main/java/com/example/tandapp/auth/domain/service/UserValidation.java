@@ -7,7 +7,7 @@ import com.example.tandapp.auth.domain.ports.out.IHasherPassword;
 import com.example.tandapp.auth.domain.ports.out.IUserRepository;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service //Después se deberá crear un contenedor, para evitar tener una libreria externa en la capa de dominio
 public class UserValidation {
 
     private final IEmailCheckRepository emailCheckRepository;

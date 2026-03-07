@@ -1,8 +1,7 @@
 package com.example.tandapp.auth.infrastructure.adapters;
 
-import com.example.tandapp.auth.domain.Users;
 import com.example.tandapp.auth.domain.exceptions.InvalidAccessToken;
-import com.example.tandapp.auth.domain.ports.out.IAccessTokenMaker;
+import com.example.tandapp.auth.application.ports.out.IAccessTokenMaker;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,10 +29,10 @@ public class AccessTokenMakerImpl implements IAccessTokenMaker {
     }
 
     @Override
-    public String generateAccessToken(Users user){
+    public String generateAccessToken(UUID userId, String email) {
         return Jwts.builder()
-                .setSubject(user.getInformation().getEmail())
-                .claim("userId", user.showId().toString())
+                .setSubject(email)
+                .claim("userId", userId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -65,7 +64,7 @@ public class AccessTokenMakerImpl implements IAccessTokenMaker {
 
     private Claims getAllClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey()) // Tu llave de 256 bits
+                .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

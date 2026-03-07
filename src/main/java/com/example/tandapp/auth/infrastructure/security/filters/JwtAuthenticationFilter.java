@@ -1,6 +1,6 @@
 package com.example.tandapp.auth.infrastructure.security.filters;
 
-import com.example.tandapp.auth.domain.ports.out.IAccessTokenMaker;
+import com.example.tandapp.auth.application.ports.out.IAccessTokenMaker;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,10 +1,12 @@
 package com.example.tandapp.auth.application;
 
 import com.example.tandapp.auth.application.ports.in.IRefreshAccessTokenUseCase;
-import com.example.tandapp.auth.domain.exceptions.RefreshTokenExpired;
-import com.example.tandapp.auth.domain.ports.out.IAccessTokenMaker;
+import com.example.tandapp.auth.domain.RefreshTokens;
+import com.example.tandapp.auth.application.ports.out.IAccessTokenMaker;
 import com.example.tandapp.auth.domain.service.RefreshTokenValidation;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RefreshAccessTokenUseCaseImpl implements IRefreshAccessTokenUseCase {
 
     private final RefreshTokenValidation refreshTokenValidation;
@@ -17,10 +19,11 @@ public class RefreshAccessTokenUseCaseImpl implements IRefreshAccessTokenUseCase
 
     @Override
     public String execute(String refreshToken) {
-        if(!refreshTokenValidation.validate(refreshToken)){
-            throw new RefreshTokenExpired();
-        }
 
-        return null;
+        RefreshTokens newToken = refreshTokenValidation.validate(refreshToken);
+
+        String accessToken = accessTokenMaker.generateAccessToken(newToken.getUserId(), newToken.getEmail());
+
+        return accessToken;
     }
 }
