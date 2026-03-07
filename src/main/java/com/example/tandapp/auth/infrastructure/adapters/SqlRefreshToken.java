@@ -7,6 +7,8 @@ import com.example.tandapp.auth.infrastructure.mappers.TokenMapper;
 import com.example.tandapp.auth.infrastructure.repository.JpaRepositoryRefreshToken;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class SqlRefreshToken implements IRefreshTokenRepository {
     private final JpaRepositoryRefreshToken jpaRepositoryRefreshToken;
@@ -16,8 +18,16 @@ public class SqlRefreshToken implements IRefreshTokenRepository {
         this.jpaRepositoryRefreshToken = jpaRepositoryRefreshToken;
         this.mapper = mapper;
     }
+
+
+    @Override
     public void save(RefreshTokens token){
         RefreshTokensEntity refreshToken = mapper.toPersistance(token);
         jpaRepositoryRefreshToken.save(refreshToken);
+    }
+
+    @Override
+    public Optional<RefreshTokens> validate(String token){
+        return jpaRepositoryRefreshToken.findByRefreshToken(token).map(mapper::toDomain);
     }
 }

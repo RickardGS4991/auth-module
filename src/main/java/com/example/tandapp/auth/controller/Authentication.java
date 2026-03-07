@@ -5,7 +5,7 @@ import com.example.tandapp.auth.application.ports.in.ILoginUseCase;
 import com.example.tandapp.auth.application.ports.in.IRegisterUseCase;
 import com.example.tandapp.auth.application.dto.LoginUserRequest;
 import com.example.tandapp.auth.application.dto.RegisterUserRequest;
-import com.example.tandapp.utils.entity.ApiResponse;
+import com.example.tandapp.core.utils.entity.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

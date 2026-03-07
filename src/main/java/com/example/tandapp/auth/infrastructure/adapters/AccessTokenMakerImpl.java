@@ -1,14 +1,17 @@
 package com.example.tandapp.auth.infrastructure.adapters;
 
 import com.example.tandapp.auth.domain.Users;
+import com.example.tandapp.auth.domain.exceptions.InvalidAccessToken;
 import com.example.tandapp.auth.domain.ports.out.IAccessTokenMaker;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
+import java.util.UUID;
 
 @Component
 public class AccessTokenMakerImpl implements IAccessTokenMaker {
@@ -33,7 +36,38 @@ public class AccessTokenMakerImpl implements IAccessTokenMaker {
                 .claim("userId", user.showId().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    @Override
+    public void validateAccessToken(String accessToken){
+        try{
+            Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(accessToken);
+        } catch(JwtException | IllegalArgumentException e){
+            throw new InvalidAccessToken();
+        }
+    }
+
+    @Override
+    public String getEmailUser(String token){
+        return getAllClaims(token).getSubject();
+    }
+
+    @Override
+    public UUID getUserId(String accessToken){
+        return getAllClaims(accessToken).get("userId",UUID.class);
+    }
+
+    private Key getSigningKey() {
+        return Keys.hmacShaKeyFor(this.secret.getBytes(StandardCharsets.UTF_8));
+    }
+
+    private Claims getAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey()) // Tu llave de 256 bits
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }

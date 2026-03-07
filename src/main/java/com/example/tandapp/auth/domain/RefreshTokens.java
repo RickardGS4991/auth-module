@@ -37,7 +37,7 @@ public class RefreshTokens {
         return new RefreshTokens(refreshTokenId, userId, refreshToken, expiresAt, revoked);
     }
 
-    public boolean isExpired(Instant todayHour){
+    public static boolean isExpired(Instant todayHour){
         Instant thisMoment = Instant.now();
 
         return thisMoment.isAfter(todayHour);
