@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface IRefreshTokenRepository {
     void save(RefreshTokens token);
     Optional<RefreshTokens> findByToken(String token);
+    void deleteByRefreshToken(String refreshToken);
 }
