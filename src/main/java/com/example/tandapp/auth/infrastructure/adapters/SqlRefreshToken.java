@@ -30,4 +30,8 @@ public class SqlRefreshToken implements IRefreshTokenRepository {
     public Optional<RefreshTokens> findByToken(String token){
         return jpaRepositoryRefreshToken.findByRefreshToken(token).map(mapper::toDomain);
     }
+
+    public void deleteByRefreshToken(String refreshToken){
+        jpaRepositoryRefreshToken.deleteByRefreshToken(refreshToken);
+    }
 }

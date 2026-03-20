@@ -1,6 +1,7 @@
 package com.example.tandapp.auth.controller;
 
 import com.example.tandapp.auth.application.dto.LoginUserResponse;
+import com.example.tandapp.auth.application.ports.in.ILogOutUseCase;
 import com.example.tandapp.auth.application.ports.in.ILoginUseCase;
 import com.example.tandapp.auth.application.ports.in.IRefreshAccessTokenUseCase;
 import com.example.tandapp.auth.application.ports.in.IRegisterUseCase;
@@ -19,16 +20,17 @@ public class Authentication {
     private final IRegisterUseCase register;
     private final ILoginUseCase login;
     private final IRefreshAccessTokenUseCase refreshAccessToken;
+    private final ILogOutUseCase logOut;
 
-    public Authentication(IRegisterUseCase register, ILoginUseCase login, IRefreshAccessTokenUseCase refreshAccessToken) {
+    public Authentication(IRegisterUseCase register, ILoginUseCase login, IRefreshAccessTokenUseCase refreshAccessToken, ILogOutUseCase logOut) {
         this.register = register;
         this.login = login;
         this.refreshAccessToken = refreshAccessToken;
+        this.logOut = logOut;
     }
 
     @PostMapping("/signup")
     public ResponseEntity<Void> registerUser(@Valid @RequestBody RegisterUserRequest information){
-        System.out.println("Entrando al controller");
         register.execute(information);
 
         return ResponseEntity.status(200).build();
@@ -46,5 +48,12 @@ public class Authentication {
         String newAccessToken = refreshAccessToken.execute(refreshToken);
 
         return ResponseEntity.status(201).body(new ApiResponse<String>("New token", true, newAccessToken));
+    }
+
+    @DeleteMapping("/signout")
+    public ResponseEntity<ApiResponse<String>> logoutUser(@Valid @RequestParam(name = "token") String refreshToken){
+        logOut.execute(refreshToken);
+
+        return ResponseEntity.status(204).body(new ApiResponse<>("Logged out", true, null));
     }
 }

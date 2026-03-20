@@ -2,6 +2,7 @@ package com.example.tandapp.auth.domain;
 
 import java.time.Instant;
 
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class RefreshTokens {
@@ -39,10 +40,12 @@ public class RefreshTokens {
         return new RefreshTokens(refreshTokenId, userId, email, refreshToken, expiresAt, revoked);
     }
 
-    public static boolean isExpired(Instant todayHour){
-        Instant thisMoment = Instant.now();
+    public static boolean isExpired(Instant birthHour){
+        long lifeCycle = 8;
 
-        return thisMoment.isAfter(todayHour);
+        Instant expirationTime = birthHour.plus(lifeCycle, ChronoUnit.HOURS);
+
+        return Instant.now().isAfter(expirationTime);
     }
 
     public boolean isRevoked(){
