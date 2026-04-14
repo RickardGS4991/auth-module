@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>tandapp-auth-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<name>Auth API-tandapp</name>
 	<description>This is a demo for a personal project, which I decided to show my own authentication part in a public repository.</description>
 	<url/>
