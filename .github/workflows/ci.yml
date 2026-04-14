@@ -54,14 +54,23 @@ jobs:
 
   cleanup:
     needs: release
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: always() && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Delete Merged Branches 🧹
-        uses: SWS-Solutions/delete-merged-branches-action@v2
+      - name: Cloning repo 💻
+        uses: actions/checkout@v4
         with:
+          fetch-depth: 0
+
+      - name: Delete Merged Branches 🧹
+        run: |
+          git fetch --prune
+          for branch in $(git branch -r --merged origin/main | grep -v 'origin/main' | sed 's/origin\///'); do
+            git push origin --delete $branch || echo "$branch cannot be deleted"
+          done
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
