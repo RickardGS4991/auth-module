@@ -1,4 +1,4 @@
-package com.example.tandapp.auth.infrastructure.adapters;
+package com.example.tandapp.auth.infrastructure.adapters.persistance;
 
 import com.example.tandapp.auth.domain.Users;
 import com.example.tandapp.auth.domain.ports.out.IUserRepository;

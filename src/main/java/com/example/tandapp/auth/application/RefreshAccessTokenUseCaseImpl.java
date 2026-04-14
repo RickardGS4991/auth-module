@@ -4,9 +4,7 @@ import com.example.tandapp.auth.application.ports.in.IRefreshAccessTokenUseCase;
 import com.example.tandapp.auth.domain.RefreshTokens;
 import com.example.tandapp.auth.application.ports.out.IAccessTokenMaker;
 import com.example.tandapp.auth.domain.service.RefreshTokenValidation;
-import org.springframework.stereotype.Service;
 
-@Service
 public class RefreshAccessTokenUseCaseImpl implements IRefreshAccessTokenUseCase {
 
     private final RefreshTokenValidation refreshTokenValidation;
