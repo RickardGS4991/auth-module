@@ -1,17 +1,43 @@
-# tandapp
+# Servicio de Autenticación con Clean Architecture & DDD
 
-Dentro de la tanda, una persona agregará a los miembros al grupo. El jefe deberá elegir el monto a contribuir y el día de paga. Cada miembro del grupo tiene 5 días para enviar su pago. En caso de no hacerlo, se mostrará su deuda. Cada día e paga, un miembro recibirá su pago y lo demás tendrán que pagar. Por ejemplo, si son 5 miembros dentro del grupo. Uno recibirá su pago, y los otros 4 deberán pagar el monto de contribución. 
+Este repositorio contiene un sistema robusto de autenticación (Login, Logout y Sign Up) construido bajo los principios de **Clean Architecture** y **Domain-Driven Design (DDD)**.
 
-## Reglas de negocio:
+### 🚀 Origen del Proyecto
+Este servicio nació originalmente como una pieza central de un proyecto personal de mayor envergadura en el que me encuentro trabajando actualmente. He decidido extraerlo y abrirlo como un repositorio independiente para demostrar mis habilidades en el diseño de sistemas escalables, el manejo de seguridad con JWT y la implementación de arquitecturas desacopladas.
 
-Un usuario/miembro:
+---
 
-1.- Puede tener varios grupos a su cargo.
-2.- Puede estar dentro de diferentes grupos.
-3.- Si tiene una deuda pendiente, no puede crear ni acceder a nuevos grupos.
+### 🏗️ Arquitectura y Diseño
+El proyecto sigue una estructura de **Arquitectura Hexagonal (Puertos y Adaptadores)** para asegurar que el núcleo de negocio sea independiente de los frameworks y agentes externos. La arquitectura no solo busca la separación de intereses (Clean Architecture), sino que integra un enfoque DevOps desde su concepción, priorizando la observabilidad, la eficiencia en la persistencia con PostgreSQL y la preparación para entornos de CI/CD.
 
-Un grupo:
-1.- Puede tener un máximo de 10 miembros.
-2.- Puede tener un mínimo de 4 miembros.
-3.- Debe seleccionar un día de paga.
-4.- Debe tener un encargado.
+* **Capa de dominio:** Contiene el "cerebro" de la aplicación. Implementa Entidades, Value Objects e Invariantes de negocio (reglas de integridad) sin dependencias externas.
+* **Capa de aplicación** Define los Casos de Uso (Sign Up, Login, Logout) que orquestan el flujo de datos.
+* **Capa de infraestructura:** Implementa los detalles técnicos como la persistencia en PostgreSQL, la seguridad con Spring Security y la generación de tokens.
+
+---
+
+### 🛠️ Tecnologías Utilizadas
+* **Java 21** como lenguaje principal.
+* **Spring Boot 3** (Spring Security, Spring Data JPA).
+* **PostgreSQL** como base de datos relacional.
+* **JWT (JSON Web Tokens)** para autenticación Stateless.
+* **Docker** para la contenedorización y despliegue de la base de datos.
+* **JUnit 5 / Mockito** para asegurar la calidad mediante pruebas unitarias.
+* **GitHub Actions** para la implementación de la integración continua (Próximamente despliegue continuo en AWS)
+
+---
+
+### 🔐 Características Destacadas
+* **Manejo de Refresh Tokens:** Implementación segura de tokens de acceso y de refresco con almacenamiento en base de datos.
+* **Seguridad Extensible:** Uso de filtros personalizados y `AuthenticationEntryPoint` para estandarizar las respuestas de error.
+* **Persistencia Optimizada:** Uso de índices estratégicos en PostgreSQL para búsquedas de tokens de alta velocidad.
+* **Clean Code:** Código autodocumentado, siguiendo principios SOLID y patrones de diseño.
+
+---
+
+### ⚙️ Instalación y Uso
+
+---
+
+**Autor:** Ricardo García Sedano  
+*Full Stack Developer | Ingeniero en Sistemas Digitales y Robótica* | Máster en DevOps
