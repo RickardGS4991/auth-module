@@ -9,9 +9,7 @@ import com.example.tandapp.auth.domain.Users;
 import com.example.tandapp.auth.domain.exceptions.InformationAlreadyEnteredException;
 import com.example.tandapp.auth.domain.ports.out.IUserRepository;
 import com.example.tandapp.auth.domain.service.UserValidation;
-import org.springframework.stereotype.Service;
 
-@Service
 public class RegisterUseCaseImpl implements IRegisterUseCase {
     private final UserValidation validator;
     private final IUserRepository userAuthRepository;

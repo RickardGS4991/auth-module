@@ -1,4 +1,4 @@
-package com.example.tandapp.auth.infrastructure.adapters;
+package com.example.tandapp.auth.infrastructure.adapters.external;
 
 import com.example.tandapp.auth.domain.exceptions.InvalidAccessToken;
 import com.example.tandapp.auth.application.ports.out.IAccessTokenMaker;

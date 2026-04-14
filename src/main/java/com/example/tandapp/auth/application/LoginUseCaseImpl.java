@@ -8,9 +8,7 @@ import com.example.tandapp.auth.domain.Users;
 import com.example.tandapp.auth.application.ports.out.IAccessTokenMaker;
 import com.example.tandapp.auth.domain.ports.out.IRefreshTokenRepository;
 import com.example.tandapp.auth.domain.service.UserValidation;
-import org.springframework.stereotype.Service;
 
-@Service
 public class LoginUseCaseImpl implements ILoginUseCase {
     private final UserValidation userValidation;
     private final IAccessTokenMaker tokensMaker;
@@ -36,6 +34,4 @@ public class LoginUseCaseImpl implements ILoginUseCase {
         return newTokens;
 
     }
-
-
 }
