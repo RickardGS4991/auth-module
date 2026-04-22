@@ -1,17 +1,28 @@
-
 services:
   postgres:
     image: postgres:16
-    container_name: tandapp-postgresql
+    container_name: authServiceT-postgresql
     environment:
-      POSTGRES_USER: tandapp
-      POSTGRES_PASSWORD: tandapp
-      POSTGRES_DB: tandapp
+      POSTGRES_USER: authServiceT
+      POSTGRES_PASSWORD: authServiceT
+      POSTGRES_DB: authServiceT
     ports:
       - "5432:5432"
     volumes:
-      - tandapp_pgdata:/var/lib/postgresql/data
+      - auth_service_pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: auth-service-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - [ cite_start ]postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/authServiceT
+      SPRING_DATASOURCE_USERNAME: authServiceT
+      SPRING_DATASOURCE_PASSWORD: authServiceT
 
 volumes:
-  tandapp_pgdata:
+  auth_service_pgdata:
 
