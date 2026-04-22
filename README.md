@@ -1,6 +1,6 @@
 # Servicio de Autenticación con Clean Architecture & DDD
 
-Este repositorio contiene un sistema robusto de autenticación (Login, Logout y Sign Up) construido bajo los principios de **Clean Architecture** y **Domain-Driven Design (DDD)**.
+Este repositorio contiene un sistema robusto de autenticación (Login, Logout y Sign Up) construido bajo los principios de **Clean Architecture**, **Domain-Driven Design (DDD)** y **Test-Driven Design (TDD)**.
 
 ### 🚀 Origen del Proyecto
 Este servicio nació originalmente como una pieza central de un proyecto personal de mayor envergadura en el que me encuentro trabajando actualmente. He decidido extraerlo y abrirlo como un repositorio independiente para demostrar mis habilidades en el diseño de sistemas escalables, el manejo de seguridad con JWT y la implementación de arquitecturas desacopladas.
@@ -39,5 +39,5 @@ El proyecto sigue una estructura de **Arquitectura Hexagonal (Puertos y Adaptado
 
 ---
 
-**Autor:** Ricardo García Sedano  
+**Autor:** Ricardo Garcia Sedano  
 *Full Stack Developer | Ingeniero en Sistemas Digitales y Robótica* | Máster en DevOps

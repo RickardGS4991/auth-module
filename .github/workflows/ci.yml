@@ -27,7 +27,7 @@ jobs:
       - name: Upload Artifact 📦
         uses: actions/upload-artifact@v4
         with:
-          name: tandapp-auth-service
+          name: authServiceT
           path: target/*.jar
 
       - name: Start testing process
@@ -43,7 +43,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: tandapp-auth-service
+          name: authServiceT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
