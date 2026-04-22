@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>tandapp-auth-service</artifactId>
+	<artifactId>authServiceT</artifactId>
 	<version>1.0.1</version>
-	<name>Auth API-tandapp</name>
+	<name>Auth API-service</name>
 	<description>This is a demo for a personal project, which I decided to show my own authentication part in a public repository.</description>
 	<url/>
 	<licenses>
