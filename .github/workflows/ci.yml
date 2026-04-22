@@ -30,6 +30,9 @@ jobs:
           name: tandapp-auth-service
           path: target/*.jar
 
+      - name: Start testing process
+        run: mvn clean test
+
   release:
     needs: build
     if: startsWith(github.ref, 'refs/tags/v')
